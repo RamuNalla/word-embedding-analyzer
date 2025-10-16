@@ -1,0 +1,37 @@
+embeddings:
+  word2vec:
+    path: "models/word2vec.model"
+    vector_size: 300
+    binary: true
+  glove:
+    path: "models/glove.6B.100d.txt"
+    dimensions: 100
+
+visualization:
+  method: "tsne"  # Options: "tsne", "pca"
+  tsne:
+    perplexity: 30
+    n_iter: 1000
+    random_state: 42
+  pca:
+    n_components: 2
+  figure:
+    width: 10
+    height: 8
+    dpi: 100
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  title: "Word Embedding Analyzer API"
+  description: "API for word similarity and analogy tasks using Word2Vec and GloVe"
+  version: "1.0.0"
+
+app:
+  title: "Word Embedding Analyzer"
+  page_icon: "📊"
+  layout: "wide"
+
+cache:
+  enabled: true
+  max_size: 1000
