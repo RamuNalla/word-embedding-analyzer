@@ -1,11 +1,29 @@
 embeddings:
+  # TorchText GloVe (automatic download)
+  torchtext_glove:
+    enabled: true
+    name: "6B"  # Options: "6B", "42B", "840B", "twitter.27B"
+    dim: 100    # Options for 6B: 50, 100, 200, 300
+    cache: ".vector_cache"
+  
+  # TorchText FastText (automatic download)
+  torchtext_fasttext:
+    enabled: true
+    language: "en"  # Options: "en", "simple"
+    cache: ".vector_cache"
+  
+  # Legacy: Local GloVe file
+  glove:
+    enabled: false
+    path: "models/glove.6B.100d.txt"
+    dimensions: 100
+  
+  # Legacy: Local Word2Vec file
   word2vec:
+    enabled: false
     path: "models/word2vec.model"
     vector_size: 300
     binary: true
-  glove:
-    path: "models/glove.6B.100d.txt"
-    dimensions: 100
 
 visualization:
   method: "tsne"  # Options: "tsne", "pca"
