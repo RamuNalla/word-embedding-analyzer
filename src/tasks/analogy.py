@@ -179,7 +179,7 @@ def create_analogy_string(positive: List[str], negative: List[str],
         neg_str = ' - '.join(negative)
         base = f"{positive[0]} - {negative[0]} + {positive[1]}"
         
-        if result:
+        if result:              # test comment
             return f"{base} = {result}"
         return f"{base} = ?"
     else:
