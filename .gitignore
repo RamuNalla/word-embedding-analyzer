@@ -41,6 +41,7 @@ data/*.txt
 data/*.csv
 !data/.gitkeep
 !models/.gitkeep
+notebooks/.vector_cache
 
 # Jupyter
 .ipynb_checkpoints/
