@@ -7,8 +7,8 @@ import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.embeddings.torchtext_glove_embedding import TorchTextGloVeEmbedding
-from src.embeddings.torchtext_word2vec_embedding import TorchTextFastTextEmbedding
+from src.embeddings.torchtext_glove_embeddings import TorchTextGloVeEmbedding
+from src.embeddings.torchtext_word2vec_embeddings import TorchTextFastTextEmbedding
 from src.tasks.similarity import calculate_similarity
 from src.tasks.analogy import solve_analogy
 import logging

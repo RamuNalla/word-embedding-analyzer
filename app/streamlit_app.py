@@ -75,27 +75,6 @@ def load_embeddings():
             except Exception as e:
                 st.warning(f"⚠️ Could not load TorchText FastText: {e}")
     
-    # Legacy: Try local Word2Vec
-    if config.get('embeddings', {}).get('word2vec', {}).get('enabled', False):
-        with st.spinner("Loading Word2Vec model..."):
-            try:
-                w2v_path = config.get('embeddings', {}).get('word2vec', {}).get('path', 'models/word2vec.model')
-                binary = config.get('embeddings', {}).get('word2vec', {}).get('binary', True)
-                embeddings['Word2Vec'] = Word2VecEmbedding(w2v_path, binary=binary)
-                st.success("✅ Word2Vec loaded successfully")
-            except Exception as e:
-                st.warning(f"⚠️ Could not load Word2Vec: {e}")
-    
-    # Legacy: Try local GloVe
-    if config.get('embeddings', {}).get('glove', {}).get('enabled', False):
-        with st.spinner("Loading local GloVe model..."):
-            try:
-                glove_path = config.get('embeddings', {}).get('glove', {}).get('path', 'models/glove.6B.100d.txt')
-                embeddings['GloVe-Local'] = GloVeEmbedding(glove_path)
-                st.success("✅ Local GloVe loaded successfully")
-            except Exception as e:
-                st.warning(f"⚠️ Could not load local GloVe: {e}")
-    
     return embeddings
 
 
