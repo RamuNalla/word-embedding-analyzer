@@ -1,3 +1,43 @@
+"""
+Streamlit application for word embedding visualization and analysis.
+"""
+
+import streamlit as st
+import yaml
+import sys
+from pathlib import Path
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Add parent directory to path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from src.embeddings.torchtext_glove_embeddings import TorchTextGloVeEmbedding
+from src.embeddings.torchtext_word2vec_embeddings import TorchTextFastTextEmbedding
+from src.tasks.similarity import calculate_similarity, get_most_similar, similarity_matrix
+from src.tasks.analogy import solve_analogy, simple_analogy, compare_analogies
+from src.visualization.visualizer import EmbeddingVisualizer
+
+
+# Page configuration
+st.set_page_config(
+    page_title="Word Embedding Analyzer",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+
+@st.cache_resource
+def load_config():
+    """Load configuration file."""
+    config_path = Path("config/config.yaml")
+    if config_path.exists():
+        with open(config_path, 'r') as f:
+            return yaml.safe_load(f)
+    return {}
+
+
 @st.cache_resource
 def load_embeddings():
     """Load embedding models."""
@@ -21,7 +61,7 @@ def load_embeddings():
                 st.warning(f"⚠️ Could not load TorchText GloVe: {e}")
     
     # Try TorchText FastText (automatic download)
-    if config.get('embeddings', {}).get('torchtext_fasttext', {}).get('enabled', True):
+    if config.get('embeddings', {}).get('torchtext_fasttext', {}).get('enabled', False):
         with st.spinner("Loading TorchText FastText model (will download if needed)..."):
             try:
                 fasttext_config = config.get('embeddings', {}).get('torchtext_fasttext', {})
@@ -57,47 +97,6 @@ def load_embeddings():
                 st.warning(f"⚠️ Could not load local GloVe: {e}")
     
     return embeddings
-
-"""
-Streamlit application for word embedding visualization and analysis.
-"""
-
-import streamlit as st
-import yaml
-import sys
-from pathlib import Path
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Add parent directory to path
-sys.path.append(str(Path(__file__).parent.parent))
-
-from src.embeddings.word2vec_embedding import Word2VecEmbedding
-from src.embeddings.glove_embedding import GloVeEmbedding
-from src.embeddings.torchtext_glove_embedding import TorchTextGloVeEmbedding
-from src.embeddings.torchtext_word2vec_embedding import TorchTextFastTextEmbedding
-from src.tasks.similarity import calculate_similarity, get_most_similar, similarity_matrix
-from src.tasks.analogy import solve_analogy, simple_analogy, compare_analogies
-from src.visualization.visualizer import EmbeddingVisualizer
-
-
-# Page configuration
-st.set_page_config(
-    page_title="Word Embedding Analyzer",
-    page_icon="📊",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-
-@st.cache_resource
-def load_config():
-    """Load configuration file."""
-    config_path = Path("config/config.yaml")
-    if config_path.exists():
-        with open(config_path, 'r') as f:
-            return yaml.safe_load(f)
-    return {}
 
 
 
