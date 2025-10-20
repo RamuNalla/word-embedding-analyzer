@@ -164,7 +164,7 @@ class TorchTextGloVeEmbedding(BaseEmbedding):
         neg_vecs = [self.get_vector(w) for w in negative]
         
         # Check if all words are in vocabulary
-        if None in pos_vecs or None in neg_vecs:
+        if any(v is None for v in pos_vecs) or any(v is None for v in neg_vecs):
             logger.warning("One or more words not in vocabulary")
             return []
         
